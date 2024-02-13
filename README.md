@@ -12,4 +12,4 @@ Unity로 제작된 로그라티크게임의 포트폴리오입니다.
 https://youtu.be/zoGHLAhQFPE
 게임실행 영상입니다.
 
-
+ROR2게임개발기획.ppt도 같이보시면 좋습니다.
