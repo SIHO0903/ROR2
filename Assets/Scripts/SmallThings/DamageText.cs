@@ -15,7 +15,7 @@ public class DamageText : MonoBehaviour
     {
         text= GetComponent<TextMeshPro>();
         alpha = text.color;
-    }
+    }   
     private void OnEnable()
     {
         transform.position = Vector3.zero;

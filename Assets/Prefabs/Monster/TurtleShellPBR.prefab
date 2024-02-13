@@ -1286,7 +1286,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  maxHealth: 10
+  maxHealth: 30
   health: 0
   isBoss: 0
   meleeDistance: 1.7

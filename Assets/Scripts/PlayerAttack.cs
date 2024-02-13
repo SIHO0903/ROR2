@@ -113,7 +113,7 @@ public class PlayerAttack : MonoBehaviour
                 specBullet.gameObject.SetActive(false);
                 specBullet.transform.position = bulletPos.position;
                 specBullet.gameObject.SetActive(true);
-                specBullet.GetComponent<BulletFire>().Dir(bulletPos.position, hitInfo.point, DamageCal());
+                specBullet.GetComponent<BulletFire>().Dir(bulletPos.position, hitInfo.point, DamageCal()*5f);
                 playerMove.anim.SetTrigger("SpecAttack");
                 specialSkillCount--;
                 curAttackRate = 0;
@@ -163,7 +163,7 @@ public class PlayerAttack : MonoBehaviour
         {
             glaive.gameObject.SetActive(true);
             glaive.transform.position = glaivePos.position;
-            glaive.GetComponent<GlaiveFire>().Dir(glaivePos.position, nT.nearestTarget.position, DamageCal());
+            glaive.GetComponent<GlaiveFire>().Dir(glaivePos.position, nT.nearestTarget.position, DamageCal() * 3f);
 
         }
     }

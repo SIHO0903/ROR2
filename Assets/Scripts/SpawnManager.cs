@@ -36,13 +36,7 @@ public class SpawnManager : MonoBehaviour, IIBoss
     {
         boxs = new GameObject[boxCount];
         SpawnBox();
-        enemy = PoolManager.instance.Get(PoolManager.PrefabType.Enemy, 3);
-        enemy.GetComponent<Enemy>().maxHealth = 500f;
-        float maxhealth = enemy.GetComponent<Enemy>().maxHealth;
-        float damage = enemy.GetComponent<Enemy>().damage;
-        stage.LevelManager(maxhealth, damage);
-        enemy.transform.position = RandomPos();
-        enemy.SetActive(true);
+
     }
     void Update()
     {
