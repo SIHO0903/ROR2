@@ -49,21 +49,23 @@ public class Interactable : MonoBehaviour
                 }
 
                 IInteractable interactable = hitInfo.transform.GetComponent<IInteractable>();
+
                 interactable.Interact(GameManager.instance.neededGold);
                 interactable.SetActiveFalse();
+
                 if (Input.GetKeyDown(KeyCode.E) && GameManager.instance.gold >= GameManager.instance.neededGold)
                 {
                     hitInfo.transform.GetComponent<Animator>().SetTrigger("Open");
                     hitInfo.transform.GetComponent<BoxCollider>().enabled = false;
                     GameManager.instance.gold -= GameManager.instance.neededGold;
-                    Destroy(hitInfo.transform.gameObject, 5f); //ÆÄ±«??
+                    Destroy(hitInfo.transform.gameObject, 5f);
 
                     StartCoroutine(ItemInstantiate(hitInfo.transform));
-
+                    
                 }
                 else if (Input.GetKeyDown(KeyCode.E) && GameManager.instance.gold < GameManager.instance.neededGold)
                 {
-                    Debug.Log("±×Áö´Â°¡¶ó");
+                    Debug.Log("µ· ºÎÁ·");
                 }
 
 

@@ -76,7 +76,7 @@ public class PlayerMove : MonoBehaviour
     Interactable interactable;
     [HideInInspector] public PlayerAttack playerAttack;
     [HideInInspector] public Item item;
-    [HideInInspector] public FadeIn fadeIn;
+    [HideInInspector] public FadeOut fadeOut;
     private void Awake()
     {
         interactable = GetComponent<Interactable>();
@@ -85,7 +85,7 @@ public class PlayerMove : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         rigid.freezeRotation = true;
         anim = GetComponentInChildren<Animator>();
-        fadeIn = GetComponent<FadeIn>();
+        fadeOut = GetComponent<FadeOut>();
         healthBar = healthUI.GetComponentsInChildren<Slider>()[0];
         shieldBar = healthUI.GetComponentsInChildren<Slider>()[1];
         healthTxt = healthUI.GetComponentInChildren<TextMeshProUGUI>();

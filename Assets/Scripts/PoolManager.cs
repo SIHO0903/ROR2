@@ -8,41 +8,30 @@ using UnityEngine;
 public class PoolManager : MonoBehaviour
 {
     public static PoolManager instance;
-
     public enum PrefabType {Player, Enemy, EnemyBullet,Environment,Items,LogBooks }
-
     [System.Serializable]
     public struct PrefabPoolData
     {
         public string name;
         public GameObject[] prefabs;
         public List<GameObject>[] pools;
-    }
-    
+    } 
     public List<PrefabPoolData> prefabDatas;
-
     private void Awake()
     {
-
         instance = this;
-
-    
         for (int dataIdx = 0; dataIdx < prefabDatas.Count; dataIdx++)
         {
             
             PrefabPoolData poolData = prefabDatas[dataIdx];
             poolData.pools = new List<GameObject>[poolData.prefabs.Length];
-
-
             for (int i = 0; i < poolData.pools.Length; i++)
             {
                 poolData.pools[i] = new List<GameObject>();
             }
-
             prefabDatas[dataIdx] = poolData; 
         }
     }
-
     public GameObject Get(PrefabType prefabTypes, int index, Transform transform=null)
     {   
         GameObject select = null;
@@ -50,7 +39,7 @@ public class PoolManager : MonoBehaviour
         if (transform == null)
             transform = this.transform;
 
-        //index해당하는 프리팹 비활성화시 활성화로 전환
+        //index해당하는 비활성화된 오브젝트 활성화로 전환
         foreach (GameObject item in prefabDatas[(int)prefabTypes].pools[index])
         {
             if (!item.activeSelf)

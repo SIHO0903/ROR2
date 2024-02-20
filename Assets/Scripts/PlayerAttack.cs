@@ -117,7 +117,6 @@ public class PlayerAttack : MonoBehaviour
                 playerMove.anim.SetTrigger("SpecAttack");
                 specialSkillCount--;
                 curAttackRate = 0;
-                MissileChance(nT.NearestVisibleTarget(), DamageCal());
             }
         }
 
@@ -137,13 +136,7 @@ public class PlayerAttack : MonoBehaviour
             bullet.SetActive(true);
             bullet.GetComponent<BulletFire>().Dir(bulletPos.position, nT.nearestTarget.position, DamageCal());
         }
-        //else if (GameManager.instance.CheckAnimationPlay(playerMove.anim, "Base Layer.ShotSpecialAttack", 0.06f, true))
-        //{
-        //    specBullet.transform.position = bulletPos.position;
-        //    specBullet.gameObject.SetActive(true);
-        //    specBullet.GetComponent<BulletFire>().Dir(bulletPos.position, hitInfo.point, DamageCal());
 
-        //}
         playerMove.anim.SetFloat("AttackSpeed", AttackRateCal() / attackRate);
     }
     private void GlaiveAttack()
@@ -169,7 +162,6 @@ public class PlayerAttack : MonoBehaviour
     }
     void SpecialAttack()
     {
-
         if (Input.GetKeyDown(KeySoundSetManager.instance.keyValues[KeyAction.SKILL2]) && curSpecAtkRate <=0)
         {
             curTime = 0;
@@ -184,7 +176,6 @@ public class PlayerAttack : MonoBehaviour
 
             playerMove.AimUIController(specialAim);
 
-
             playerMove.finalSpeed = 0;
             playerMove.canMove = false;
             playerMove.readyToJump = false;
@@ -192,12 +183,12 @@ public class PlayerAttack : MonoBehaviour
         }
         if(tripleShot)
         {
-            //playerMove.anim.SetFloat("SpecX", camera.transform.rotation.y); //left,right
+            //상체가 위아래로 움직이게하는 애니메이션
             playerMove.anim.SetFloat("SpecZ", -myCamera.transform.rotation.x); //up,down
             playerMove.archerObj.rotation = playerMove.orientation.rotation;
 
         }
-
+        //3발다쏜후 쏘기전상태로 초기화
         if (specialSkillCount <= 0)
         {
             tripleShot = false;
@@ -224,15 +215,11 @@ public class PlayerAttack : MonoBehaviour
         if (curTime >= lerpTime)
         {
             curTime = lerpTime;
-
             changePos = false;
-
             playerMove.rigid.useGravity = false;
             transform.localScale = Vector3.zero;
         }
-
         transform.position = Vector3.Lerp(curPos, endPos , curTime / lerpTime);
-
     }
     #endregion 
     void SkillUI()

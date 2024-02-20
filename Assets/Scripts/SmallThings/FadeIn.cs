@@ -1,47 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class FadeIn : MonoBehaviour
 {
-    [SerializeField] Image fadeImage;
-    [SerializeField] string scene;
+    Image fadeIn;
     Color color;
     float timer;
-    bool fadein;
+    [SerializeField] float limit = 0.5f;
+    private void Awake()
+    {
+        fadeIn = GetComponent<Image>();
+    }
     private void OnEnable()
     {
-        fadein = false;
-        timer = 0f;
         color = Color.black;
-        color.a = 0f;
-        fadeImage.color = color;
-    }
-    public void SceneChange()
-    {
-        fadein = true;
-    }
-    IEnumerator FadeInCoroutine()
-    {
-        if (timer < 0.5f)
-        {
-            timer += Time.deltaTime;
-            color.a = Mathf.Lerp(0f, 1f, timer / 0.5f);
-            fadeImage.color = color;
-            yield return null;
-        }
-        else
-        {
-            SceneManager.LoadScene(scene);
-        }
+        color.a = 1f;
+        fadeIn.color = color;
+        timer = 0;
     }
     private void Update()
     {
-        if (fadein)
-            StartCoroutine(FadeInCoroutine());
-
+        if(timer < limit)
+        {
+            timer += Time.deltaTime;
+            color.a = Mathf.Lerp(1f, 0f, timer / limit);
+            fadeIn.color = color;
+        }
     }
 }

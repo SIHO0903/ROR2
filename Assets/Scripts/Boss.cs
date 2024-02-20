@@ -47,13 +47,13 @@ public class Boss : MonoBehaviour
     #region BossRogic
     private void BossRogic()
     {
-
         if(attackTimer > 5f)
         {
             Attack();
             attackTimer = 0;
         }
     }
+    //랜덤으로 패턴발생
     void Attack()
     {
         attackType = Random.Range(0, 2);

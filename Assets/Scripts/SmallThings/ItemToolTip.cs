@@ -12,7 +12,6 @@ public class ItemToolTip : MonoBehaviour,IPointerEnterHandler,IPointerExitHandle
     public GameObject itemToolTip;
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("ÅÇ´©¸¥ÈÄ ÅøÆÁº¸±â");
         image = GetComponent<Image>();
         itemToolTip.transform.GetChild(0).GetComponent<Image>().sprite = image.sprite;
         itemToolTip.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = gameObject.name;

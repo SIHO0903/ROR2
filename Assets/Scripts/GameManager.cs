@@ -175,37 +175,39 @@ public class GameManager : MonoBehaviour
         }
     }
     public void ItemBoxSave(string winLose)
-    {
+    {       
+        //클리어시 Victory, 사망시 Lose...
+        FinalStats.WinLose = winLose;
 
+        //획득한 아이템(이미지,중복획득개수) 저장
         for (int i = 0; i < itembox.childCount; i++)
         {
             itemBoxData.images.Add(itembox.transform.GetChild(i).GetComponent<Image>().sprite);
             itemBoxData.itemsCount.Add(int.Parse(itembox.transform.GetChild(i).GetComponentInChildren<TextMeshProUGUI>().text));
         }
+
         if (useItemImage != null)
             itemBoxData.images.Add(useItemImage);
-        FinalStats.WinLose = winLose;
+
         string jsonData = JsonUtility.ToJson(itemBoxData);
         string path = Path.Combine(Application.dataPath, "ItemBoxData.json");
         if (File.Exists(path)) File.Delete(path);
         File.WriteAllText(path, jsonData);
 
+        //초기화면의 해금여부저장
         string logBookData = JsonUtility.ToJson(checkLogBooks);
         string logBookPath = Path.Combine(Application.dataPath, "LogBookData.json");
         if (File.Exists(logBookPath)) File.Delete(logBookPath);
         File.WriteAllText(logBookPath, logBookData);
 
-        Debug.Log("unLocked.index.Count : " + unLocked.index.Count);
-        Debug.Log("unLocked.index(0) : " + unLocked.index[0]);
-
-
+        //로그북 데이터 저장
         string unlockData = JsonUtility.ToJson(unLocked);
         string unlockPath = Path.Combine(Application.dataPath, "unLockedData.json");
         if (File.Exists(unlockPath)) File.Delete(unlockPath);
         File.WriteAllText(unlockPath, unlockData);
 
         isBossDie = false;
-        GameManager.instance.player.fadeIn.SceneChange();
+        player.fadeOut.SceneChange();
         isOver = true;
     }
     void LogBook()

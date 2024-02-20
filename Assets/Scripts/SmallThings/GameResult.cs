@@ -63,8 +63,10 @@ public class GameResult : MonoBehaviour
                 break;
 
         }
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
         StatsUI();
         itemBoxData = new ItemBoxData();
         itemBoxData.images = new List<Sprite>();
@@ -180,8 +182,5 @@ public class GameResult : MonoBehaviour
         color = Color.black;
         color.a = 0f;
         fadein.color = color;
-
-
-
     }
 }

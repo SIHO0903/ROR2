@@ -40,7 +40,7 @@ public class ItemMove : MonoBehaviour
         else if (elapsedTime>=totalTime && isvolcano)
         {
             volcanoFire.AreaOfEffect(transform); 
-            gameObject.SetActive(false); //사라질때 폭팔하는 파티클잇으면 좋을거같음
+            gameObject.SetActive(false);
         }
         else
             transform.Rotate(Vector3.up * rotationSpeed);

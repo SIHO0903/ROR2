@@ -9,9 +9,7 @@ public class NearestTarget : MonoBehaviour
     [SerializeField] LayerMask targetLayer;
     [SerializeField] float missileRange;
     [SerializeField] float range;
-    [SerializeField] float boxCastSize; //에임보정 수치가 클수록 타겟과 멀어져도 타겟팅하고잇음
-
-
+    [SerializeField] float boxCastSize; //에임보정 : 수치가 클수록 타겟과 멀어져도 타겟팅하고잇음
 
     Transform cameraTr;
     private void Start()
@@ -33,7 +31,5 @@ public class NearestTarget : MonoBehaviour
         {
             return nearestTarget = null;
         }
-
-
     }
 }

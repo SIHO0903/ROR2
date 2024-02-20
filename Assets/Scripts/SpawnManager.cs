@@ -52,7 +52,7 @@ public class SpawnManager : MonoBehaviour, IIBoss
             enemy = PoolManager.instance.Get(PoolManager.PrefabType.Enemy, Random.Range(0, 4));
             float maxhealth = enemy.GetComponent<Enemy>().maxHealth;
             float damage = enemy.GetComponent<Enemy>().damage;
-            stage.LevelManager(maxhealth, damage);
+            stage.LevelManager(maxhealth, damage); //가변 난이도에 따라 몬스터의 능력치 상승
             enemy.transform.position = RandomPos();
             enemy.SetActive(true);
             curSpawnRate = 0;
@@ -71,6 +71,7 @@ public class SpawnManager : MonoBehaviour, IIBoss
         float xPos = playerPos.x  + xRandomPos;
         float zPos = playerPos.z  + zRandomPos;
 
+        //지면 생성을 위한 y값 조정
         randomPos = new Vector3(xPos, maxYPos, zPos);
         Physics.Raycast(randomPos, Vector3.down, out raycastHit);
         curYPos = raycastHit.point.y + curYPosOffset;
@@ -97,20 +98,19 @@ public class SpawnManager : MonoBehaviour, IIBoss
     void TeleporterEvent()
     {
         teleporterEventSphere.SetActive(true);
+        //텔레포터구체가 서서히커지게함
         teleporterEventSphere.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * sphereSize, sphereTime);
     }
     void TeleporterEventInProgress()
     {
         if(teleporterEventSphere.activeSelf && IsInTeleportEven.inTeleport)
         {
-            //텔레포터게이지가참
             if (teleportGauge <= 100)
             {
                 teleportGauge += Time.deltaTime*4f;
+                //게이지가 차는걸 직관적으로 볼수있게함
                 GameManager.instance.teleporterGaugeTxt.text = string.Format("Charge The Teleporter ({0:F0}%)",teleportGauge);
-
             }
-
         }
     }
     void SpawnBox()

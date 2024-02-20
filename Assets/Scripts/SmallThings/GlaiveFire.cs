@@ -8,7 +8,6 @@ public class GlaiveFire : MonoBehaviour
     Vector3 dirPos; //첫 타겟팅된 적
     Transform rotGlaive;
     Rigidbody rigid;
-
     [SerializeField] float maxBounces;
     private void Awake()
     {
@@ -22,20 +21,14 @@ public class GlaiveFire : MonoBehaviour
     public void Dir(Vector3 startPos, Vector3 endPos, float damage)
     {
         dirPos = endPos - startPos;
-
         this.damage = damage;
     }
-    // 던졌을때 최대6번 튕기게
-    // 임의의 거리에서 가장가까운 적부터 튕기게
-    // 같은적은 두번맞으면 안됨
-    // 적이 한명이면 한번 튕기고 끝
     private void Update()
     {
+        //글레이브가 회전하면 날라가며 보이게
         rotGlaive.transform.Rotate(-Vector3.forward * glaiveRotSpeed * Time.deltaTime);
         transform.LookAt(dirPos);
-
     }
-
     private void FixedUpdate()
     {
         rigid.velocity = dirPos.normalized * glaiveSpeed * Time.deltaTime;
@@ -44,13 +37,11 @@ public class GlaiveFire : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("맞음");
             if (maxBounces > 0)
             {
-                Vector3 newDir = SearchNearestEnemy(other.transform);
+                Vector3 newDir = SearchSecondNearEnemy(other.transform);
                 if (newDir != Vector3.zero)
                 {
-
                     dirPos = newDir;
                     maxBounces--;
                 }
@@ -65,34 +56,29 @@ public class GlaiveFire : MonoBehaviour
             }
         }
     }
-    Vector3 SearchNearestEnemy(Transform excludeEnemy)
+    Vector3 SearchSecondNearEnemy(Transform excludeEnemy)
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, Mathf.Infinity,LayerMask.GetMask("Enemy"));
-
+        Collider[] colliders = Physics.OverlapSphere(transform.position, Mathf.Infinity,LayerMask.GetMask("Enemy")); // 모든적 감지
         Transform closestEnemy = null;
         float closestDistance = Mathf.Infinity;
-        Debug.Log("감지한 수" + colliders.Length);
         foreach (var collider in colliders)
         {
-            if(collider.transform != excludeEnemy.transform)
+            if(collider.transform != excludeEnemy.transform) //가장가까운적제외 
             {
                 float distance = Vector3.Distance(transform.position, collider.transform.position);
 
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;
-                    closestEnemy = collider.transform.GetChild(0).transform;
-                    //Debug.Log(distance + " / ");
+                    closestEnemy = collider.transform.GetChild(0).transform; //두번째로 가까운적
                 }
             }
         }
-
         if (closestEnemy != null)
         {
             Debug.Log(closestEnemy.name);
             return (closestEnemy.position - transform.position);
         }
-
         return Vector3.zero;
     }
 }
